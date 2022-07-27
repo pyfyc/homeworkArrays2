@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.OptionalInt;
+
 public class Main {
 
     // Метод инициализирует ваш массив и заполнит его случайными значениями
@@ -9,6 +12,30 @@ public class Main {
             arr[i] = random.nextInt(100_000) + 100_000;
         }
         return arr;
+    }
+
+    // Метод отзеркаливает массив с помощью перестановки элементов массива.
+    // Т.е. первый элемент меняется местами с последним, второй - с предпоследним, и т.д.
+    static char[] reverseBySwapping(char array[], int arrayLen) {
+        int i, k;
+        char t;
+        for (i = 0; i < arrayLen / 2; i++) {
+            t = array[i];
+            array[i] = array[arrayLen - i - 1];
+            array[arrayLen - i - 1] = t;
+        }
+        return array;
+    }
+
+    // Метод отзеркаливает массив с помощью другого массива.
+    static char[] reverseByTempArray(char array[], int arrayLen) {
+        char[] arrayRev = new char[arrayLen];
+        int j = arrayLen;
+        for (int i = 0; i < arrayLen; i++) {
+            arrayRev[j - 1] = array[i];
+            j = j - 1;
+        }
+        return arrayRev;
     }
 
     public static void main(String[] args) {
@@ -39,14 +66,14 @@ public class Main {
         // в формате: «Минимальная сумма трат за день составила … рублей.
         // Максимальная сумма трат за день составила … рублей».
 
-        int maxAmt = 0;
-        int minAmt = 300_000;
+        int maxAmt = arr[0];
+        int minAmt = arr[0];
 
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] > maxAmt) {
                 maxAmt = arr[i];
             }
-            if (arr[i] < minAmt) {
+            else if (arr[i] < minAmt) {
                 minAmt = arr[i];
             }
         }
@@ -78,7 +105,9 @@ public class Main {
 
         char[] reverseFullName = { 'n', 'a', 'v', 'I', ' ', 'v', 'o', 'n', 'a', 'v', 'I'};
 
-        for (int i = reverseFullName.length - 1; i >= 0; i--) {
+        reverseFullName = reverseBySwapping(reverseFullName, reverseFullName.length);
+
+        for (int i = 0; i < reverseFullName.length; i++) {
             System.out.print(reverseFullName[i]);
         }
     }
